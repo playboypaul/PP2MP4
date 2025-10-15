@@ -1,7 +1,11 @@
 import { GoogleGenAI } from "@google/genai";
 import { SlideData, VideoStyle, VideoQuality, AspectRatio, HollywoodGenre, FrameRate } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
+let ai: GoogleGenAI;
+
+export const initializeGemini = (apiKey: string) => {
+  ai = new GoogleGenAI(apiKey);
+};
 
 // Helper function to poll for video generation status, as this is an async operation
 const pollVideoOperation = async (operation: any): Promise<any> => {

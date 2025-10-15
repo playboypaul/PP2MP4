@@ -1,10 +1,10 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { FileUpload } from './components/FileUpload';
 import { LoadingIndicator } from './components/LoadingIndicator';
 import { ResultsDisplay } from './components/ResultsDisplay';
 import { extractSlidesFromPptx } from './services/pptxParser';
-import { generateVideoFromSlide } from './services/geminiService';
+import { initializeGemini, generateVideoFromSlide } from './services/geminiService';
 import { type SlideData, type VideoResult, type VideoStyle, type VideoQuality, type HollywoodGenre, type AspectRatio, type FrameRate } from './types';
 import { Header } from './components/Header';
 import { ErrorDisplay } from './components/ErrorDisplay';
@@ -47,7 +47,27 @@ const App: React.FC = () => {
   const [frameRate, setFrameRate] = useState<FrameRate>('30fps');
   const [hollywoodGenre, setHollywoodGenre] = useState<HollywoodGenre>('None');
   const [customKeywords, setCustomKeywords] = useState<string>('');
+  const [apiKey, setApiKey] = useState<string>('');
+  const [isApiKeyValid, setIsApiKeyValid] = useState<boolean>(false);
 
+  useEffect(() => {
+    const key = import.meta.env.VITE_GEMINI_API_KEY;
+    if (key && key !== 'YOUR_API_KEY_HERE') {
+      setApiKey(key);
+      initializeGemini(key);
+      setIsApiKeyValid(true);
+    }
+  }, []);
+
+  const handleApiKeyChange = (key: string) => {
+    setApiKey(key);
+    if (key) {
+      initializeGemini(key);
+      setIsApiKeyValid(true);
+    } else {
+      setIsApiKeyValid(false);
+    }
+  };
 
   const handleFileUpload = useCallback(async (file: File) => {
     setAppState(AppState.PROCESSING);
@@ -156,21 +176,37 @@ const App: React.FC = () => {
       case AppState.IDLE:
       default:
         return (
-          <FileUpload
-            onFileProcess={handleFileUpload}
-            videoStyle={videoStyle}
-            onStyleChange={setVideoStyle}
-            videoQuality={videoQuality}
-            onQualityChange={setVideoQuality}
-            aspectRatio={aspectRatio}
-            onAspectRatioChange={setAspectRatio}
-            frameRate={frameRate}
-            onFrameRateChange={setFrameRate}
-            hollywoodGenre={hollywoodGenre}
-            onGenreChange={setHollywoodGenre}
-            customKeywords={customKeywords}
-            onKeywordsChange={setCustomKeywords}
-          />
+          <>
+            {!isApiKeyValid && (
+              <div className="bg-yellow-800 border border-yellow-600 text-white p-4 rounded-lg mb-6">
+                <h3 className="font-bold">API Key Required</h3>
+                <p className="text-sm">Please enter your Google Gemini API key below to enable video generation.</p>
+                <input
+                  type="text"
+                  placeholder="Enter your API Key"
+                  value={apiKey}
+                  onChange={(e) => handleApiKeyChange(e.target.value)}
+                  className="mt-2 w-full p-2 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+              </div>
+            )}
+            <FileUpload
+              onFileProcess={handleFileUpload}
+              videoStyle={videoStyle}
+              onStyleChange={setVideoStyle}
+              videoQuality={videoQuality}
+              onQualityChange={setVideoQuality}
+              aspectRatio={aspectRatio}
+              onAspectRatioChange={setAspectRatio}
+              frameRate={frameRate}
+              onFrameRateChange={setFrameRate}
+              hollywoodGenre={hollywoodGenre}
+              onGenreChange={setHollywoodGenre}
+              customKeywords={customKeywords}
+              onKeywordsChange={setCustomKeywords}
+              disabled={!isApiKeyValid}
+            />
+          </>
         );
     }
   };

@@ -66,7 +66,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             Transform your presentations into cinematic experiences.
           </p>
           <p className="text-gray-600 text-xs mt-2">
-            Contact us: <a href="mailto:powerpoint2mp4@gmail.com" className="text-purple-light hover:text-purple-lighter">powerpoint2mp4@gmail.com</a>
+            Contact us: <a href="mailto:pp2mp4@gmail.com" className="text-purple-light hover:text-purple-lighter">pp2mp4@gmail.com</a>
+          </p>
+          <p className="text-gray-600 text-xs mt-2">
+            powered by token4rge
           </p>
         </div>
       </div>
