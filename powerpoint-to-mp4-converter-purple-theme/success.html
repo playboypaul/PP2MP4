@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - PowerPoint to MP4 Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes checkmark {
+            0% {
+                stroke-dashoffset: 100;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        @keyframes scale-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .checkmark-circle {
+            animation: scale-in 0.5s ease-out;
+        }
+        .checkmark-check {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: checkmark 0.6s ease-out 0.3s forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-gray-800 rounded-2xl p-8 text-center">
+        <!-- Success Icon -->
+        <div class="mb-6 flex justify-center">
+            <svg class="w-24 h-24 checkmark-circle" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#10b981" stroke-width="4"/>
+                <path class="checkmark-check" d="M25 50 L40 65 L75 30" fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <!-- Success Message -->
+        <h1 class="text-3xl font-bold text-white mb-4">
+            🎉 Payment Successful!
+        </h1>
+        <p class="text-gray-300 mb-6">
+            Thank you for upgrading to Premium! Your account has been activated with unlimited uploads.
+        </p>
+
+        <!-- Features List -->
+        <div class="bg-gray-700 rounded-lg p-4 mb-6 text-left">
+            <h3 class="font-semibold text-purple-400 mb-3">You now have access to:</h3>
+            <ul class="space-y-2 text-gray-300 text-sm">
+                <li class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Unlimited PowerPoint conversions
+                </li>
+                <li class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Priority processing
+                </li>
+                <li class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    All video styles and qualities
+                </li>
+                <li class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Premium support
+                </li>
+            </ul>
+        </div>
+
+        <!-- Redirect Info -->
+        <p class="text-sm text-gray-400 mb-6">
+            Redirecting you to the converter in <span id="countdown">5</span> seconds...
+        </p>
+
+        <!-- Action Buttons -->
+        <button 
+            onclick="window.location.href = '/'" 
+            class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 mb-3"
+        >
+            Start Converting Now
+        </button>
+        
+        <p class="text-xs text-gray-500 mt-4">
+            Receipt has been sent to your email
+        </p>
+    </div>
+
+    <script>
+        // Set premium status in localStorage
+        try {
+            const storageKey = 'pptx-converter-data';
+            const stored = localStorage.getItem(storageKey);
+            let userData = stored ? JSON.parse(stored) : { uploadCount: 0, isPremium: false, lastUploadDate: new Date().toISOString() };
+            userData.isPremium = true;
+            userData.subscriptionDate = new Date().toISOString();
+            localStorage.setItem(storageKey, JSON.stringify(userData));
+            console.log('Premium status activated!');
+        } catch (error) {
+            console.error('Error setting premium status:', error);
+        }
+
+        // Countdown and redirect
+        let seconds = 5;
+        const countdownEl = document.getElementById('countdown');
+        
+        const countdown = setInterval(() => {
+            seconds--;
+            if (countdownEl) {
+                countdownEl.textContent = seconds;
+            }
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                window.location.href = '/';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

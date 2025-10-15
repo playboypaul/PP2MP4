@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Cancelled - PowerPoint to MP4 Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-gray-800 rounded-2xl p-8 text-center">
+        <!-- Cancel Icon -->
+        <div class="mb-6 flex justify-center">
+            <div class="w-24 h-24 bg-orange-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                <svg class="w-12 h-12 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Cancel Message -->
+        <h1 class="text-3xl font-bold text-white mb-4">
+            Payment Cancelled
+        </h1>
+        <p class="text-gray-300 mb-6">
+            Your payment was cancelled. No charges were made to your account.
+        </p>
+
+        <!-- Info Box -->
+        <div class="bg-gray-700 rounded-lg p-4 mb-6 text-left">
+            <h3 class="font-semibold text-blue-400 mb-2">You still have:</h3>
+            <ul class="space-y-2 text-gray-300 text-sm">
+                <li class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Access to your free uploads
+                </li>
+                <li class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    All video styles & qualities
+                </li>
+                <li class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Option to upgrade anytime
+                </li>
+            </ul>
+        </div>
+
+        <!-- Why Upgrade Box -->
+        <div class="bg-gradient-to-r from-purple-900 to-pink-900 border border-purple-500 rounded-lg p-4 mb-6 text-left">
+            <h3 class="font-semibold text-purple-300 mb-2">💎 Upgrade Benefits:</h3>
+            <ul class="space-y-1 text-purple-100 text-sm">
+                <li>• Unlimited conversions forever</li>
+                <li>• Priority processing</li>
+                <li>• Premium support</li>
+                <li>• One-time payment, no subscription</li>
+            </ul>
+        </div>
+
+        <!-- Redirect Info -->
+        <p class="text-sm text-gray-400 mb-6">
+            Redirecting you back in <span id="countdown">5</span> seconds...
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="space-y-3">
+            <button 
+                onclick="window.location.href = '/'" 
+                class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105"
+            >
+                Try Again - Upgrade to Premium
+            </button>
+            
+            <button 
+                onclick="window.location.href = '/'" 
+                class="w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all"
+            >
+                Continue with Free Plan
+            </button>
+        </div>
+
+        <p class="text-xs text-gray-500 mt-4">
+            Questions? Contact us at support@example.com
+        </p>
+    </div>
+
+    <script>
+        // Countdown and redirect
+        let seconds = 5;
+        const countdownEl = document.getElementById('countdown');
+        
+        const countdown = setInterval(() => {
+            seconds--;
+            if (countdownEl) {
+                countdownEl.textContent = seconds;
+            }
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                window.location.href = '/';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
