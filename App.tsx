@@ -47,26 +47,19 @@ const App: React.FC = () => {
   const [frameRate, setFrameRate] = useState<FrameRate>('30fps');
   const [hollywoodGenre, setHollywoodGenre] = useState<HollywoodGenre>('None');
   const [customKeywords, setCustomKeywords] = useState<string>('');
-  const [apiKey, setApiKey] = useState<string>('');
   const [isApiKeyValid, setIsApiKeyValid] = useState<boolean>(false);
 
   useEffect(() => {
     const key = import.meta.env.VITE_GEMINI_API_KEY;
     if (key && key !== 'YOUR_API_KEY_HERE') {
-      setApiKey(key);
       initializeGemini(key);
       setIsApiKeyValid(true);
     }
   }, []);
 
-  const handleApiKeyChange = (key: string) => {
-    setApiKey(key);
-    if (key) {
-      initializeGemini(key);
-      setIsApiKeyValid(true);
-    } else {
-      setIsApiKeyValid(false);
-    }
+  const handleInvalidFile = () => {
+    setErrorMessage('Invalid file type. Please upload a valid .pptx file.');
+    setAppState(AppState.ERROR);
   };
 
   const handleFileUpload = useCallback(async (file: File) => {
@@ -177,21 +170,9 @@ const App: React.FC = () => {
       default:
         return (
           <>
-            {!isApiKeyValid && (
-              <div className="bg-yellow-800 border border-yellow-600 text-white p-4 rounded-lg mb-6">
-                <h3 className="font-bold">API Key Required</h3>
-                <p className="text-sm">Please enter your Google Gemini API key below to enable video generation.</p>
-                <input
-                  type="text"
-                  placeholder="Enter your API Key"
-                  value={apiKey}
-                  onChange={(e) => handleApiKeyChange(e.target.value)}
-                  className="mt-2 w-full p-2 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-              </div>
-            )}
             <FileUpload
               onFileProcess={handleFileUpload}
+              onInvalidFile={handleInvalidFile}
               videoStyle={videoStyle}
               onStyleChange={setVideoStyle}
               videoQuality={videoQuality}

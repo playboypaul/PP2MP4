@@ -77,20 +77,23 @@ export const extractSlidesFromPptx = async (file: File): Promise<SlideData[]> =>
             }
         }
 
-        // Add slides if they have text OR images
+        // Add slides if they have text OR images.
+        // This is to ensure that slides with only images are also processed.
         if (slideText.trim().length > 0 || imageBases64.length > 0) {
             slides.push({
                 slideNumber,
                 text: slideText.trim(),
                 imageBases64,
             });
+        } else {
+            console.log(`Skipping slide ${slideNumber} because it has no text or images.`);
         }
 
         slideNumber++;
     }
 
     if (slides.length === 0) {
-        throw new Error("Could not find any slides with text content in the presentation.");
+        throw new Error("Could not find any slides with text or image content in the presentation.");
     }
 
     return slides;
