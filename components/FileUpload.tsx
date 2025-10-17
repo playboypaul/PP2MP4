@@ -4,6 +4,7 @@ import { VideoStyle, VideoQuality, HollywoodGenre, AspectRatio, FrameRate } from
 
 interface FileUploadProps {
   onFileProcess: (file: File) => void;
+  onInvalidFile: () => void;
   videoStyle: VideoStyle;
   onStyleChange: (style: VideoStyle) => void;
   videoQuality: VideoQuality;
@@ -20,7 +21,7 @@ interface FileUploadProps {
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({ 
-    onFileProcess, videoStyle, onStyleChange, videoQuality, onQualityChange, 
+    onFileProcess, onInvalidFile, videoStyle, onStyleChange, videoQuality, onQualityChange,
     aspectRatio, onAspectRatioChange, frameRate, onFrameRateChange,
     hollywoodGenre, onGenreChange, 
     customKeywords, onKeywordsChange,
@@ -35,10 +36,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       onFileProcess(file);
     } else {
       if (!disabled) {
-        alert('Please upload a valid .pptx file.');
+        onInvalidFile();
       }
     }
-  }, [onFileProcess, disabled]);
+  }, [onFileProcess, onInvalidFile, disabled]);
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();

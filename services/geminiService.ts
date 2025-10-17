@@ -85,17 +85,24 @@ export const generateVideoFromSlide = async (
         let operation = await ai.models.generateVideos(request);
         const finalOperation = await pollVideoOperation(operation);
 
+        if (finalOperation.error) {
+            const errorMessage = finalOperation.error.message || 'An unknown API error occurred.';
+            console.error(`API Error for slide ${slide.slideNumber}: ${errorMessage}`);
+            throw new Error(`API error on slide ${slide.slideNumber}: ${errorMessage}`);
+        }
+
         const downloadLink = finalOperation.response?.generatedVideos?.[0]?.video?.uri;
         // The API currently does not provide a separate thumbnail URI.
         const thumbnailLink = undefined;
 
         if (!downloadLink) {
-            throw new Error(`Video generation failed for slide ${slide.slideNumber}. No download link was provided.`);
+            throw new Error(`Video generation failed for slide ${slide.slideNumber}. No download link was provided by the API.`);
         }
 
         return { videoUri: downloadLink, thumbnailUri: thumbnailLink };
     } catch (error) {
         console.error(`Error generating video for slide ${slide.slideNumber}:`, error);
-        throw new Error(`Failed to generate video for slide ${slide.slideNumber}.`);
+        const message = error instanceof Error ? error.message : 'An unknown error occurred.';
+        throw new Error(`Failed to generate video for slide ${slide.slideNumber}. Reason: ${message}`);
     }
 };

@@ -46,7 +46,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   Privacy Policy
                 </button>
               </li>
-              <li><a href="mailto:powerpoint2mp4@gmail.com" className="text-gray-400 hover:text-purple-light transition-colors">Contact Us</a></li>
+              <li><a href="mailto:pp2mp4@gmail.com" className="text-gray-400 hover:text-purple-light transition-colors">Contact Us</a></li>
             </ul>
           </div>
           
@@ -54,8 +54,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <h4 className="font-semibold text-gray-200 mb-3">Support</h4>
             <ul className="space-y-2 text-sm">
               <li><a href="#tips" className="text-gray-400 hover:text-purple-light transition-colors">Tips & Best Practices</a></li>
-              <li><a href="mailto:powerpoint2mp4@gmail.com?subject=Technical Support" className="text-gray-400 hover:text-purple-light transition-colors">Technical Support</a></li>
-              <li><a href="mailto:powerpoint2mp4@gmail.com?subject=Feature Request" className="text-gray-400 hover:text-purple-light transition-colors">Feature Requests</a></li>
+              <li><a href="mailto:pp2mp4@gmail.com?subject=Technical Support" className="text-gray-400 hover:text-purple-light transition-colors">Technical Support</a></li>
+              <li><a href="mailto:pp2mp4@gmail.com?subject=Feature Request" className="text-gray-400 hover:text-purple-light transition-colors">Feature Requests</a></li>
             </ul>
           </div>
         </div>
@@ -67,9 +67,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </p>
           <p className="text-gray-600 text-xs mt-2">
             Contact us: <a href="mailto:pp2mp4@gmail.com" className="text-purple-light hover:text-purple-lighter">pp2mp4@gmail.com</a>
-          </p>
-          <p className="text-gray-600 text-xs mt-2">
-            powered by token4rge
           </p>
         </div>
       </div>
