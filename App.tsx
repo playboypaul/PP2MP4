@@ -47,15 +47,7 @@ const App: React.FC = () => {
   const [frameRate, setFrameRate] = useState<FrameRate>('30fps');
   const [hollywoodGenre, setHollywoodGenre] = useState<HollywoodGenre>('None');
   const [customKeywords, setCustomKeywords] = useState<string>('');
-  const [isApiKeyValid, setIsApiKeyValid] = useState<boolean>(false);
-
-  useEffect(() => {
-    const key = import.meta.env.VITE_GEMINI_API_KEY;
-    if (key && key !== 'YOUR_API_KEY_HERE') {
-      initializeGemini(key);
-      setIsApiKeyValid(true);
-    }
-  }, []);
+  const [isApiKeyValid, setIsApiKeyValid] = useState<boolean>(true);
 
   const handleInvalidFile = () => {
     setErrorMessage('Invalid file type. Please upload a valid .pptx file.');
@@ -185,7 +177,6 @@ const App: React.FC = () => {
               onGenreChange={setHollywoodGenre}
               customKeywords={customKeywords}
               onKeywordsChange={setCustomKeywords}
-              disabled={!isApiKeyValid}
             />
           </>
         );
