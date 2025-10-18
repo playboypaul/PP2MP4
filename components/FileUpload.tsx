@@ -17,29 +17,24 @@ interface FileUploadProps {
   onGenreChange: (genre: HollywoodGenre) => void;
   customKeywords: string;
   onKeywordsChange: (keywords: string) => void;
-  disabled: boolean;
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({ 
     onFileProcess, onInvalidFile, videoStyle, onStyleChange, videoQuality, onQualityChange,
     aspectRatio, onAspectRatioChange, frameRate, onFrameRateChange,
     hollywoodGenre, onGenreChange, 
-    customKeywords, onKeywordsChange,
-    disabled
+    customKeywords, onKeywordsChange
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = useCallback((file: File | null | undefined) => {
-    if (disabled) return;
     if (file && (file.type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' || file.name.endsWith('.pptx'))) {
       onFileProcess(file);
     } else {
-      if (!disabled) {
-        onInvalidFile();
-      }
+      onInvalidFile();
     }
-  }, [onFileProcess, onInvalidFile, disabled]);
+  }, [onFileProcess, onInvalidFile]);
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -72,16 +67,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
   
   const openFileDialog = () => {
-    if (fileInputRef.current && !disabled) {
+    if (fileInputRef.current) {
         fileInputRef.current.click();
     }
   };
 
-  const dropZoneClasses = `flex flex-col items-center justify-center w-full max-w-4xl mx-auto p-8 border-2 border-dashed rounded-xl transition-colors duration-300 ${
-    disabled
-      ? 'bg-gray-800 border-gray-700 cursor-not-allowed'
-      : `cursor-pointer hover-purple-glow ${isDragging ? 'border-purple-glow bg-gray-700' : 'purple-card hover:border-purple-glow'}`
-  }`;
+  const dropZoneClasses = `flex flex-col items-center justify-center w-full max-w-4xl mx-auto p-8 border-2 border-dashed rounded-xl transition-colors duration-300 cursor-pointer hover-purple-glow ${isDragging ? 'border-purple-glow bg-gray-700' : 'purple-card hover:border-purple-glow'}`;
   const videoStyles: VideoStyle[] = ['Default', 'Cinematic', 'Animated', 'Documentary', 'Vibrant', 'Hollywood'];
   const videoQualities: VideoQuality[] = ['480p', '720p', '1080p'];
   const aspectRatios: AspectRatio[] = ['16:9', '9:16', '1:1', '4:3', '3:4'];
